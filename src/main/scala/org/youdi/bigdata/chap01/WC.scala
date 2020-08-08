@@ -18,6 +18,6 @@ object WC {
       .sum(1) // 第二个元素值 sum
     value1.print()
 
-//    environment.execute("wc")
+    //    environment.execute("wc")
   }
 }
