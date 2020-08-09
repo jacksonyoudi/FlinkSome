@@ -7,17 +7,17 @@ import org.apache.flink.streaming.api.scala._
 object WCStreaming {
   def main(args: Array[String]): Unit = {
     print(args.mkString(" "))
-    val paras: ParameterTool = ParameterTool.fromArgs(args)
+    //    val paras: ParameterTool = ParameterTool.fromArgs(args)
 
 
-    val host: String = paras.get("hostname")
-    val port: Int = paras.getInt("port")
+    //    val host: String = paras.get("hostname")
+    //    val port: Int = paras.getInt("port")
 
     val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
 
     env.setParallelism(8) // 设置并行度
 
-    val ds: DataStream[String] = env.socketTextStream(host, port)
+    val ds: DataStream[String] = env.socketTextStream("localhost", 7777)
 
 
     //      flink每一步都可以设置 并行度 和spark不同
