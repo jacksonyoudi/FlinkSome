@@ -64,6 +64,20 @@ package org.youdi.bigdata.chap02
  * 4. 什么样的任务能够合并在一起？
  * one-to-one 并行度相同
  *
+ *
+ * 程序与数据流 dataflow
+ * 执行图
+ * streamgraph -> jobgraph -> excutegraph ->物理执行图
+ *
+ *
+ * 数据传输
+ * one-to-one
+ * redistributing rebalance
+ *
+ * 任务链 task chain
+ * one-to-one 并行度相同
+ *
+ *
  */
 object Demo {
   def main(args: Array[String]): Unit = {
