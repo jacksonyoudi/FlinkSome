@@ -14,12 +14,16 @@ object KafkaS {
     //    env.enableCheckpointing(1000)
     //    env.getCheckpointConfig.setCheckpointingMode(CheckpointingMode.EXACTLY_ONCE)
 
-//    env.disableOperatorChaining()
+    //    env.disableOperatorChaining()
     // source
     val properties: Properties = new Properties()
     properties.setProperty("zookeeper.connect", "localhost:2181")
     properties.setProperty("bootstrap.servers", "localhost:9092")
     properties.setProperty("group.id", "flink")
+    properties.setProperty("key.deserializer", "org.apache.kafka.common.serialization.StringDeserialer")
+    properties.setProperty("value.deserializer", "org.apache.kafka.common.serialization.StringDeserialer")
+    properties.setProperty("auto.offset.reset", "latest")
+
 
     val stream: DataStream[String] = env.addSource(
       new FlinkKafkaConsumer("youdi", new SimpleStringSchema(), properties)
