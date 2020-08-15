@@ -14,6 +14,7 @@ object KafkaS {
     //    env.enableCheckpointing(1000)
     //    env.getCheckpointConfig.setCheckpointingMode(CheckpointingMode.EXACTLY_ONCE)
 
+//    env.disableOperatorChaining()
     // source
     val properties: Properties = new Properties()
     properties.setProperty("zookeeper.connect", "localhost:2181")
@@ -24,10 +25,13 @@ object KafkaS {
       new FlinkKafkaConsumer("youdi", new SimpleStringSchema(), properties)
     )
 
-    stream.flatMap(_.split(" "))
-      .map((_, 1))
-      .keyBy(0)
-      .sum(1).print()
+    stream.
+      flatMap(_.split(" "))
+      .filter(_.nonEmpty).disableChaining() // 拒绝合并
+      .map((_, 1)).slotSharingGroup("1")
+      .keyBy(0) //.startNewChain()
+      .sum(1).slotSharingGroup("2")
+      .print()
 
 
     env.execute("kafka streaming")
