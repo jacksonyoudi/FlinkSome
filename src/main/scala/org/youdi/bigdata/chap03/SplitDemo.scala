@@ -13,7 +13,6 @@ object SplitDemo {
       val strings: Array[String] = s.split(",")
       SensorReading(strings(0), strings(1).toLong, strings(2).toFloat)
     })
-
     senStreaming.keyBy("id")
       .sum("temperature")
   }
